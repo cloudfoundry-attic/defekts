@@ -31,6 +31,24 @@ module Defekts
 
     end
 
+    def self.get_severity
+
+      severity = Array.new
+
+      p1 = Defekt.where( :severity => 1 ).count
+      p2 = Defekt.where( :severity => 2 ).count
+      p3 = Defekt.where( :severity => 3 ).count
+      p4 = Defekt.where( :severity => -1 ).count
+      
+      severity.push( [ "p1", p1 ] )
+      severity.push( [ "p2", p2 ] )
+      severity.push( [ "p3", p3 ] )
+      severity.push( [ "unclassified", p4 ] )
+
+      return severity
+
+    end
+
   end
 
 end

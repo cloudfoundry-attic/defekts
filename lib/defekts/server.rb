@@ -40,6 +40,10 @@ module Defekts
 
       data = [ header ]
 
+      vals = Analysis.get_severity
+
+      data.concat(vals)
+
       graph = { :data => data,
                 :title => "severity count",
                 :x => "severity",
