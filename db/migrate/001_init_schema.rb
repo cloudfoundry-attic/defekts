@@ -16,6 +16,8 @@ class InitSchema < ActiveRecord::Migration
       t.string :state
       t.integer :severity
       t.timestamp :creation
+      t.timestamp :accepted
+      t.date :day
       t.string :owner
       t.string :reporter
       t.timestamps

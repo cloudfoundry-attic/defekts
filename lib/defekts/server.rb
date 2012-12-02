@@ -13,5 +13,47 @@ module Defekts
     return Yajl::Encoder.encode("0.1")
   end
 
+  get "/graphs/:graphid" do
+
+    g = params[:graphid].downcase
+
+    if g == "trend"
+
+      header = [ 'day', 'closed', 'open', 'new' ]
+
+      data = [ header ]
+
+      vals = Analysis.get_trend
+
+      data.concat(vals)
+
+      graph = { :data => data,
+                :title => "defect trend",
+                :x => "day",
+                :y => "defect count",
+                :position => "right",
+                :name => "trends" }
+
+    elsif g == "severity"
+
+      header = [ 'severity', 'count' ]
+
+      data = [ header ]
+
+      graph = { :data => data,
+                :title => "severity count",
+                :x => "severity",
+                :y => "defect count",
+                :legend => "none",
+                :name => "severity" }
+
+    else
+      halt 404, "Chart type not available."
+    end
+
+    return Yajl::Encoder.encode(graph)
+
+  end
+
 end
 

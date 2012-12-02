@@ -6,6 +6,7 @@ require "time"
 require "yajl"
 require "yaml"
 
+require File.join( File.dirname(__FILE__), "defekts", "defekts_helper" )
 require File.join( File.dirname(__FILE__), "defekts", "server" )
 require File.join( File.dirname(__FILE__), "defekts", "pivotal" )
 require File.join( File.dirname(__FILE__), "defekts/models", "defekt" )

@@ -43,11 +43,11 @@ module Defekts
 
         @defekts.each do |d|
 
+          severity = get_severity(d.labels)
+
           defekt = Defekt.find_by_origin_id(d.id)
 
           if defekt.nil?
-
-            severity = get_severity(d.labels)
 
             ndefekt = Defekt.create(
               :project_id => project.id,
@@ -55,10 +55,26 @@ module Defekts
               :title => d.name,
               :summary => d.description,
               :creation => d.created_at,
+              :accepted => d.accepted_at,
               :state => d.current_state,
               :severity => severity,
               :owner => d.owned_by,
               :reporter => d.requested_by )
+
+          else
+
+              defekt.title    = d.name
+              defekt.summary  = d.description
+              defekt.creation = d.created_at
+              defekt.accepted = d.accepted_at
+              defekt.state    = d.current_state
+              defekt.severity = severity
+              defekt.owner    = d.owned_by
+              defekt.reporter = d.requested_by
+
+              if defekt.changed?
+                defekt.save
+              end
 
           end
 
