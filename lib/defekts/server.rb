@@ -1,7 +1,11 @@
 module Defekts
 
   get "/" do
-    Defekts::Pivotal.sync
+    Pivotal.sync
+    #p = Project.create( :name => "frameworks", :origin_id => "72352" )
+    #po = Project.find_by_origin_id("72351")
+    #puts po.id
+    #puts po.name
     return
   end
 

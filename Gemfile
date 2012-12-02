@@ -1,9 +1,11 @@
 source "http://rubygems.org"
 
+gem "activerecord"
 gem "crack"
 gem "happymapper"
 gem "nokogiri"
 gem "nokogiri-happymapper"
+gem "pg"
 gem "pivotal-tracker"
 gem "redis"
 gem "rest-client"
@@ -11,4 +13,4 @@ gem "sinatra"
 gem "sinatra-contrib"
 gem "thin"
 gem "yajl-ruby"
-gem "yaml"
+

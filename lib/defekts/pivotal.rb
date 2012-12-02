@@ -2,9 +2,24 @@ require "pivotal-tracker"
 
 module Defekts
   module Pivotal
-    def self.sync
 
-      if Defekts.check_synced
+    def self.get_severity(labels)
+
+      if labels.nil?
+        return -1
+      elsif labels.include?("p1")
+        return 1
+      elsif labels.include?("p2")
+        return 2
+      else
+        return 3
+      end
+
+    end
+
+    def self.sync(force=false)
+
+      if Defekts.check_synced and !force
         return
       end
 
@@ -14,24 +29,44 @@ module Defekts
 
       @projects.each do |p|
 
-        if !settings.redis.hexists( "projects", p.id )
-          settings.redis.hset( "projects", p.id, p.name )
+        project = Project.find_by_origin_id(p.id)
+
+        if project.nil?
+
+          project = Project.create(
+            :name => p.name,
+            :origin_id => p.id )
+
         end
 
-        @defekts = p.stories.all( :story_type => [ 'bug' ] )
+        @defekts = p.stories.all( :story_type => [ "bug" ] )
 
-        @defekts.each do |b|
+        @defekts.each do |d|
 
-          if !settings.redis.hexists( "defekts", b.id )
-            settings.redis.hset( "defekts", b.id, b.inspect )
+          defekt = Defekt.find_by_origin_id(d.id)
+
+          if defekt.nil?
+
+            severity = get_severity(d.labels)
+
+            ndefekt = Defekt.create(
+              :project_id => project.id,
+              :origin_id => d.id,
+              :title => d.name,
+              :summary => d.description,
+              :creation => d.created_at,
+              :state => d.current_state,
+              :severity => severity,
+              :owner => d.owned_by,
+              :reporter => d.requested_by )
+
           end
 
         end
 
       end
 
-      settings.redis.set( "defekts_last_sync", "" )
-      settings.redis.expire( "defekts_last_sync", 3600 )
+      settings.last_sync = Time.now
 
     end
   end
