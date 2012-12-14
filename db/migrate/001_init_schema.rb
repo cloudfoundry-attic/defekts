@@ -12,7 +12,7 @@ class InitSchema < ActiveRecord::Migration
       t.belongs_to :project
       t.integer :origin_id, :unique => true
       t.string :title, :null => false
-      t.string :summary
+      t.text :summary
       t.string :state
       t.integer :severity
       t.timestamp :creation
