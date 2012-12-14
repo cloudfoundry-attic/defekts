@@ -1,12 +1,13 @@
 development:
-  adapter: sqlite3                                                              
-  database: /home/hu/projects/defekts/db/defekts.db                               
-  pool: 5                                                                       
-  timeout: 5000 
+  adapter: sqlite3
+  database: $FILE_LOCATION
+  pool: 5
+  timeout: 5000
 
-production:                                                                     
+production:
   adapter: postgresql
   encoding: utf8
-  database: defekts
-  username: root
-  password: steve
+  database: defects
+  username: $USERNAME
+  password: $PASSWORD
+
