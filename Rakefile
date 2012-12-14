@@ -44,6 +44,7 @@ task :config do
   require "highline/import"
   require "erb"
 
+  dbfile   = File.dirname(__FILE__) + "/db/defekts.db" 
   username = ask("username: ")
   password = ask("password: ") {|q| q.echo = "*"}
 
