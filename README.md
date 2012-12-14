@@ -20,21 +20,32 @@ install
 -------
 
 1. clone the source from gerrit
+```
         gerrit clone ssh://reviews.cloudfoundry.org/defects
+```
 2. create a config file
-        rake config # input postgresql username and password 
+```
+        rake config # input postgresql username and password
+```
 3. create the database
+```
         rake db:migrate
+```
 4. start up the web server
+```
         thin start -d -p <port>   # e.g. thin start -d -p 8000
+```
 5. stop the web server
+```
         thin stop
+```
 
 troubleshooting
 ---------------
 
 * on occassion, the thin stop command fails to shutdown the server in which
 case you'll need to kill the process manually via the kill command
+```
     kill -9 PID
-
+```
 
