@@ -2,7 +2,6 @@ require "active_record"
 require "active_record/fixtures"
 require "digest/md5"
 require "logger"
-require "mysql"
 require "securerandom"
 require "yaml"
 
