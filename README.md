@@ -21,27 +21,31 @@ install
 
 1. clone the source from gerrit
 ```
-        gerrit clone ssh://reviews.cloudfoundry.org/defects
+    gerrit clone ssh://reviews.cloudfoundry.org/defects
 ```
 2. bundle install
 ```
-        bundle install
+    bundle install
 ```
 3. create a config file
 ```
-        rake config # input postgresql username and password
+    rake config # input postgresql username and password
 ```
 4. create the database
 ```
-        rake db:migrate
+    rake db:migrate
 ```
-5. start up the web server
+5. set environment # default is development which uses sqlite3
 ```
-        thin start -d -p <port>   # e.g. thin start -d -p 8000
+    export RACK_ENV=production
 ```
-6. stop the web server
+6. start up the web server
 ```
-        thin stop
+    thin start -d -p <port>   # e.g. thin start -d -p 8000
+```
+7. stop the web server
+```
+    thin stop
 ```
 
 troubleshooting

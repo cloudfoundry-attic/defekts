@@ -6,7 +6,7 @@ module Defekts
 
       trend = Array.new
       # TODO: skip sat sun
-      for i in 1..days
+      days.downto(1) do |i|
 
         day = Array.new
 
