@@ -36,21 +36,31 @@ namespace :db do
 
   end
 
-  desc "load seed fixtures from db/fixtures) into the db"
-  task :seed => :environment do
+end
 
-    Dir.glob( 'db/fixtures/*.yml').each do |file|
-      puts file
-      ActiveRecord::Fixtures.create_fixtures( 'db/fixtures', File.basename( file, '.*' ) )
-    end
-  end
+desc "configuration"
+task :config do
+
+  require "highline/import"
+  require "erb"
+
+  username = ask("username: ")
+  password = ask("password: ") {|q| q.echo = "*"}
+
+  config = ERB.new(File.read("./conf/database.yml.erb"))
+  contents = config.result(binding)
+
+  file = File.open( "./conf/database.yml", "w" )
+  file.write(contents)
+  file.close
+
 end
 
 desc "generate help text"
 task :help do
 
   puts "rake"
-  puts "  db:create"
+  puts "  config"
   puts "  db:migrate"
   puts "  db:seed"
 

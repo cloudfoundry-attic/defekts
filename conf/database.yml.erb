@@ -1,13 +1,13 @@
 development:
   adapter: sqlite3
-  database: $FILE_LOCATION
+  database: db/defekts.db 
   pool: 5
   timeout: 5000
 
 production:
   adapter: postgresql
   encoding: utf8
-  database: defects
-  username: $USERNAME
-  password: $PASSWORD
+  database: defekts 
+  username: <%= username %>
+  password: <%= password %>
 
