@@ -14,13 +14,15 @@ dependencies
 * postgresql
 * sqlite3 (for development)
 * activerecord
+* highline
 
 install
 -------
 
 - clone the source from gerrit
     gerrit clone ssh://reviews.cloudfoundry.org/defects
-- modify the conf/database.yml file with your postgresql credentials
+- create a config file
+    rake config # input postgresql username and password 
 - create the database
     rake db:migrate
 - start up the web server
@@ -32,6 +34,7 @@ troubleshooting
 ---------------
 
 * on occassion, the thin stop command fails to shutdown the server in which
-case you'll need to kill the process manually via kill -9 PID
+case you'll need to kill the process manually via the kill command
+    kill -9 PID
 
 
