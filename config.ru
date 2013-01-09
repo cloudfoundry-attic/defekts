@@ -1,3 +1,3 @@
-require "./defekts"
+require "./lib/defekts"
 run Sinatra::Application
 

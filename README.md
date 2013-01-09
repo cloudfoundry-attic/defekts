@@ -41,7 +41,7 @@ install
 ```
 6. start up the web server
 ```
-    thin start -d -p <port>   # e.g. thin start -d -p 8000
+    bundle exec thin start -d -p <port>   # e.g. bundle exec thin start -d -p 8000
 ```
 7. stop the web server
 ```

@@ -9,6 +9,7 @@ require "yaml"
 require File.join( File.dirname(__FILE__), "defekts", "defekts_helper" )
 require File.join( File.dirname(__FILE__), "defekts", "server" )
 require File.join( File.dirname(__FILE__), "defekts", "pivotal" )
+require File.join( File.dirname(__FILE__), "defekts", "jira-helper" )
 require File.join( File.dirname(__FILE__), "defekts/models", "defekt" )
 require File.join( File.dirname(__FILE__), "defekts/models", "project" )
 require File.join( File.dirname(__FILE__), "defekts/models", "projectdefekt" )
@@ -19,7 +20,7 @@ module Defekts
 
     env = ENV["RACK_ENV"] || "development"
 
-    config = YAML.load_file(File.join(                                            
+    config = YAML.load_file(File.join(
       Sinatra::Application.root, "../conf/database.yml" ))[env]
 
     ActiveRecord::Base.establish_connection config
@@ -43,7 +44,7 @@ module Defekts
 
     if elapsed >= 3600
       return false
-    else 
+    else
       return true
     end
 
