@@ -14,4 +14,5 @@ gem "sinatra"
 gem "sinatra-contrib"
 gem "thin"
 gem "yajl-ruby"
-
+gem "jira"
+gem "jira-ruby"
