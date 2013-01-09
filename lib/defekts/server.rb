@@ -1,7 +1,23 @@
+require 'yaml'
+
 module Defekts
+  #set :public_folder, '/home/cfqa/cloudfoundry/sauron'
 
   get "/" do
-    Pivotal.sync
+    defekt_config = settings.defekt_config
+
+    # need to change this to more generic way once class pattern is redefined.
+    if !defekt_config['pivotal'].nil?
+      defekt_config['pivotal'].each do |site|
+        PivotalHelper.sync(false, site['token'])
+      end
+    end
+    if !defekt_config['jira'].nil?
+      defekt_config['jira'].each do |site|
+        JiraHelper.sync(false, site['site_url'], site['username'], site['password'])
+      end
+    end
+
     #p = Project.create( :name => "frameworks", :origin_id => "72352" )
     #po = Project.find_by_origin_id("72351")
     #puts po.id
@@ -10,7 +26,7 @@ module Defekts
   end
 
   get "/version" do
-    return Yajl::Encoder.encode("0.1")
+    return Yajl::Encoder.encode(SYSTEM_VERSION)
   end
 
   get "/graphs/:graphid" do

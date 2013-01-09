@@ -1,7 +1,7 @@
 require "pivotal-tracker"
 
 module Defekts
-  module Pivotal
+  module PivotalHelper
 
     def self.get_severity(labels)
 
@@ -17,13 +17,13 @@ module Defekts
 
     end
 
-    def self.sync(force=false)
+    def self.sync(force=false, token)
 
       if Defekts.check_synced and !force
         return
       end
 
-      PivotalTracker::Client.token = settings.token
+      PivotalTracker::Client.token = token
 
       @projects = PivotalTracker::Project.all
 
